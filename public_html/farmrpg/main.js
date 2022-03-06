@@ -63,26 +63,24 @@ function findInput() {
     };
 };
 
-/* function findInput() {
-    wwOutput.innerHTML = userInputBox.value;
-    wwList.innerHTML = '';
-    const userInput = userInputBox.value.toLowerCase();
-    let outputArr = [];
-    wwData.forEach((element) => {
-        if (element.output.toLowerCase() === userInput) {
-            let percentage = 0;
-            wwData.forEach((element2) => {
-                if (element.input === element2.input) {
-                    percentage++;
-                };
-            });
-            percentage = Math.floor(1 / percentage * 100);
-            let li = document.createElement('li');
-            li.innerHTML = `<strong>${element.input}</strong> with a ${percentage}% chance to drop.`;
-            wwList.appendChild(li);
-        };
+function createSuggestionList() {
+    let allOutputs = [];
+    wwData.forEach((element1) => {
+        element1.outputs.forEach((element2) => {
+            allOutputs.push(element2);
+        });
     });
-}; */
+    let uniqueOutputs = [...new Set(allOutputs)];
+    uniqueOutputs.sort();
+    uniqueOutputs.forEach((element) => {
+        let optionElement = document.createElement('option');
+        let attribute = document.createAttribute('value');
+        const suggestions = document.getElementById('suggestions');
+        attribute.value = element;
+        optionElement.setAttributeNode(attribute);
+        suggestions.appendChild(optionElement);
+    });
+};
 
 //Event Listeners//
 userInputBox.addEventListener('keydown', (event) => { //Event Listeners for input-box 'Enter' key.
@@ -92,3 +90,5 @@ userInputBox.addEventListener('keydown', (event) => { //Event Listeners for inpu
     }
 })
 wwButton.addEventListener('click', findInput); // Event listener for click on search button
+
+window.addEventListener('DOMContentLoaded', createSuggestionList); //Creates suggestion list for wwSearchTool input box
