@@ -40,7 +40,7 @@ function findPercentage(value) {
 };
 
 function findInput() {
-    wwList.innerHTML = '';
+    wwList.innerHTML = ''; //clear ul tag
     const userInput = userInputBox.value;
     //if-statement checks if userInput is found in any of the outputs arrays
     if (wwSearchOutputs(userInput) === true) {
@@ -61,6 +61,7 @@ function findInput() {
     } else {
         createListItem(`According to our data '<strong>${userInput}</strong>' cannot be acquired from the Wishing Well.`, wwList);
     };
+    userInputBox.blur(); //deselect input box
 };
 
 function createSuggestionList() {
