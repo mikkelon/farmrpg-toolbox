@@ -59,7 +59,7 @@ function findInput() {
             createListItem(`<strong>${element[0]}</strong> with a <strong>${element[1]}%</strong> drop chance.`, wwList); //Creates a list item for each element in inputsArray
         });
     } else {
-        createListItem(`According to our data, '<strong>${userInput}</strong>' cannot be acquired from the Wishing Well.`, wwList);
+        createListItem(`According to our data '<strong>${userInput}</strong>' cannot be acquired from the Wishing Well.`, wwList);
     };
 };
 

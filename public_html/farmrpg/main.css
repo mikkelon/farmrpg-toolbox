@@ -136,3 +136,8 @@ header h2 {
     width: 150px;
     margin: 5px 0;
 }
+
+.bot-text {
+    margin-top: auto;
+    font-size: 9px;
+}
