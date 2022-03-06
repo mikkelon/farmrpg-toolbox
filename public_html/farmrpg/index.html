@@ -3,6 +3,7 @@
     <head>
         <title>FarmRPG tools</title>
         <link rel="stylesheet" href="./main.css">
+        <script src="./data.js" defer></script>
         <script src="./main.js" defer></script>
     </head>
 
@@ -17,11 +18,16 @@
         <main>
             <div class="spacer"></div>
             <div class="toolbox">
-                <div class="tool counter">
-                    <h1>Counter:</h1>
-                    <div class="button" id="button-plus"><p>+</p></div>
-                    <p id="counter">-</p>
-                    <div class="button" id="button-minus"><p>-</p></div>
+                <div class="tool ww-search">
+                    <h1>Wishing Well Search Tool</h1>
+                    <p>What do you want to find?</p>
+                    <div>
+                        <input id="ww-user-input">
+                        <div class="button" id="ww-button"><p>Search</p><br /></div>
+                    </div>
+                    <p>Items to throw in the wishing well:</p>
+                    <ul id="ww-list">
+                    </ul>
                 </div>
             </div>
         </main>
