@@ -148,15 +148,6 @@ header h2 {
     font-weight: bold;
 }
 
-.ww-search li {
-    list-style-type: none;
-    margin-bottom: 5px;
-}
-
-.ww-search ul {
-    margin-top: 10px;
-}
-
 #ww-button {
     height: 22px;
     width: 75px;
