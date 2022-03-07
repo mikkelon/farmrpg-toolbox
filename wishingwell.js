@@ -6,7 +6,6 @@ const wwList = document.getElementById('ww-list');
 const wwOutput = document.getElementById('ww-output');
 const wwGrid = document.querySelector('.ww-grid');
 const wwHeaderClass = document.querySelectorAll('.ww-header');
-const wwRowClass = document.querySelectorAll('.ww-row');
 
 //Function for creating list item in HTML document
 function createListItem(string, list) {
