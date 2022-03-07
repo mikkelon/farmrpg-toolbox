@@ -81,10 +81,13 @@ function findInput(searchCriteria) {
         inputsArray.forEach((element) => { //itereates through all elements in inputsArray
             createGridItem(element[0], element[1]);
         });
+        document.getElementById('ww-h2').innerHTML = `Looking for <strong>${searchCriteria}</strong>`
     } else if (searchCriteria === '') {
+        document.getElementById('ww-h2').innerHTML = '';
         wwHeaderClass.forEach(e => e.style.display = 'none');
         document.getElementById('error-msg').innerHTML = 'You need to enter a search criteria.'
     } else {
+        document.getElementById('ww-h2').innerHTML = '';
         wwHeaderClass.forEach(e => e.style.display = 'none');
         document.getElementById('error-msg').innerHTML = `According to our data '<strong>${searchCriteria}</strong>' cannot be acquired from the Wishing Well.`;
     };

@@ -107,7 +107,14 @@ header h2 {
 }
 
 .ww-search h1 {
-    margin-bottom: 10px;;
+    margin-bottom: 10px;
+}
+
+.ww-search h2 {
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 5px;
 }
 
 .ww-grid {
@@ -126,6 +133,7 @@ header h2 {
     display: flex;
     align-items: center;
 }
+
 
 .ww-row a {
     color: white;
