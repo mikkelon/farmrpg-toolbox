@@ -150,7 +150,7 @@ const wwData = [{
     outputs: ['Gold Catfish', 'Gold Sea Bass', 'Goldgill']
 },{
     input: 'Goldfin',
-    outputs: ['Gold Catfish', 'Gold Trout']
+    outputs: ['Gold Catfish', 'Gold Trout', 'Goldjack']
 },{
     input: 'Goldgill',
     outputs: ['Gold Catfish', 'Goldfin', 'Goldjack']
