@@ -20,15 +20,6 @@ p, h1, h2, li {
     color: #EDF5E1;
 }
 
-a {
-    color: #86C232;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #61892F;
-}
-
 header a {
     color: #86C232;
     text-decoration: none;
@@ -134,6 +125,11 @@ header h2 {
     height: 100%;
     display: flex;
     align-items: center;
+}
+
+.ww-row a {
+    color: white;
+    text-decoration: none;
 }
 
 .ww-grid .ww-header {

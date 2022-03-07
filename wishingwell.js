@@ -6,6 +6,7 @@ const wwList = document.getElementById('ww-list');
 const wwOutput = document.getElementById('ww-output');
 const wwGrid = document.querySelector('.ww-grid');
 const wwHeaderClass = document.querySelectorAll('.ww-header');
+const wwResults = document.getElementsByClassName('ww-result');
 
 //Function for creating list item in HTML document
 function createListItem(string, list) {
@@ -20,7 +21,7 @@ function createGridItem(input, percentage) {
     let cssClass1 = document.createAttribute('class');
     let cssClass2 = document.createAttribute('class');
     cssClass1.value = 'ww-row';
-    htmlDiv1.innerHTML = `<p>${input}</p>`;
+    htmlDiv1.innerHTML = `<p><a href="#" class="ww-result" id="${input}">${input}</a></p><div class="exp-arrow"></div>`;
     htmlDiv1.setAttributeNode(cssClass1);
     wwGrid.appendChild(htmlDiv1);
     cssClass2. value = 'ww-row';
@@ -56,20 +57,19 @@ function findPercentage(value) {
     return percentage;
 };
 
-function findInput() {
+function findInput(searchCriteria) {
     if (document.querySelector('.ww-row') != null) {
         document.querySelectorAll('.ww-row').forEach(e => e.remove());
     };
-    const userInput = userInputBox.value;
-    if (userInput != '') {
+    if (searchCriteria != '') {
         wwHeaderClass.forEach(e => e.style.display = 'flex');
         document.getElementById('error-msg').innerHTML = '';
     };
     //if-statement checks if userInput is found in any of the outputs arrays
-    if (wwSearchOutputs(userInput) === true) {
+    if (wwSearchOutputs(searchCriteria) === true) {
         let inputsArray = [];
         wwData.forEach((element) => { //iterates through all elements in wwData
-            if (elementHasOutput(element.outputs, userInput) === true) { //if-statement checks if element has what the user is looking for
+            if (elementHasOutput(element.outputs, searchCriteria) === true) { //if-statement checks if element has what the user is looking for
                 let arr = [];
                 const percentage = Math.floor(1 / element.outputs.length * 100);
                 arr.push(element.input); //pushes input for said output to an array inputsArray
@@ -81,14 +81,17 @@ function findInput() {
         inputsArray.forEach((element) => { //itereates through all elements in inputsArray
             createGridItem(element[0], element[1]);
         });
-    } else if (userInput === '') {
+    } else if (searchCriteria === '') {
         wwHeaderClass.forEach(e => e.style.display = 'none');
         document.getElementById('error-msg').innerHTML = 'You need to enter a search criteria.'
     } else {
         wwHeaderClass.forEach(e => e.style.display = 'none');
-        document.getElementById('error-msg').innerHTML = `According to our data '<strong>${userInput}</strong>' cannot be acquired from the Wishing Well.`;
+        document.getElementById('error-msg').innerHTML = `According to our data '<strong>${searchCriteria}</strong>' cannot be acquired from the Wishing Well.`;
     };
     userInputBox.blur(); //deselect input box
+    Array.from(wwResults).forEach(e => {
+        e.addEventListener('click', findInputByResult);
+    })
 };
 
 function createSuggestionList() {
@@ -114,9 +117,20 @@ function createSuggestionList() {
 userInputBox.addEventListener('keydown', (event) => { //Event Listeners for input-box 'Enter' key.
     if (event.key === 'Enter') {
         event.preventDefault();
-        findInput();
+        findInput(userInputBox.value);
     }
-})
-wwButton.addEventListener('click', findInput); // Event listener for click on search button
-
+});
+wwButton.addEventListener('click', () => {
+    findInput(userInputBox.value);
+}); // Event listener for click on search button
 window.addEventListener('DOMContentLoaded', createSuggestionList); //Creates suggestion list for wwSearchTool input box
+
+function findInputByResult(event) {
+    let targetID = event.target.id;
+    findInput(targetID);
+    userInputBox.value = targetID;
+};
+
+/* Array.from(wwResults).forEach(e => {
+    e.addEventListener('click', findInputByResult);
+}) */
