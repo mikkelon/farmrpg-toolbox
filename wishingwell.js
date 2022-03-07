@@ -4,12 +4,30 @@ const wwText = document.getElementById('ww-text');
 const userInputBox = document.getElementById('ww-user-input');
 const wwList = document.getElementById('ww-list');
 const wwOutput = document.getElementById('ww-output');
+const wwGrid = document.querySelector('.ww-grid');
+const wwHeaderClass = document.querySelectorAll('.ww-header');
+const wwRowClass = document.querySelectorAll('.ww-row');
 
 //Function for creating list item in HTML document
 function createListItem(string, list) {
     let li = document.createElement('li');
     li.innerHTML = string;
     list.appendChild(li);
+};
+
+function createGridItem(input, percentage) {
+    let htmlDiv1 = document.createElement('div');
+    let htmlDiv2 = document.createElement('div');
+    let cssClass1 = document.createAttribute('class');
+    let cssClass2 = document.createAttribute('class');
+    cssClass1.value = 'ww-row';
+    htmlDiv1.innerHTML = `<p>${input}</p>`;
+    htmlDiv1.setAttributeNode(cssClass1);
+    wwGrid.appendChild(htmlDiv1);
+    cssClass2. value = 'ww-row';
+    htmlDiv2.innerHTML = `<p>${percentage}%</p>`;
+    htmlDiv2.setAttributeNode(cssClass2);
+    wwGrid.appendChild(htmlDiv2);
 };
 
 //Function for searching through output array
@@ -40,8 +58,14 @@ function findPercentage(value) {
 };
 
 function findInput() {
-    wwList.innerHTML = ''; //clear ul tag
+    if (document.querySelector('.ww-row') != null) {
+        document.querySelectorAll('.ww-row').forEach(e => e.remove());
+    };
     const userInput = userInputBox.value;
+    if (userInput != '') {
+        wwHeaderClass.forEach(e => e.style.display = 'flex');
+        document.getElementById('error-msg').innerHTML = '';
+    };
     //if-statement checks if userInput is found in any of the outputs arrays
     if (wwSearchOutputs(userInput) === true) {
         let inputsArray = [];
@@ -56,12 +80,14 @@ function findInput() {
         });
         inputsArray.sort((a,b) => {return b[1] - a[1]});
         inputsArray.forEach((element) => { //itereates through all elements in inputsArray
-            createListItem(`<strong>${element[0]}</strong> with a <strong>${element[1]}%</strong> drop chance.`, wwList); //Creates a list item for each element in inputsArray
+            createGridItem(element[0], element[1]);
         });
     } else if (userInput === '') {
-        createListItem('You need to enter a search criteria.', wwList);
+        wwHeaderClass.forEach(e => e.style.display = 'none');
+        document.getElementById('error-msg').innerHTML = 'You need to enter a search criteria.'
     } else {
-        createListItem(`According to our data '<strong>${userInput}</strong>' cannot be acquired from the Wishing Well.`, wwList);
+        wwHeaderClass.forEach(e => e.style.display = 'none');
+        document.getElementById('error-msg').innerHTML = `According to our data '<strong>${userInput}</strong>' cannot be acquired from the Wishing Well.`;
     };
     userInputBox.blur(); //deselect input box
 };
