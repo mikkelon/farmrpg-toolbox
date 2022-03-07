@@ -4,9 +4,11 @@ const wwText = document.getElementById('ww-text');
 const userInputBox = document.getElementById('ww-user-input');
 const wwList = document.getElementById('ww-list');
 const wwOutput = document.getElementById('ww-output');
-const wwGrid = document.querySelector('.ww-grid');
+const wwGrid = document.getElementById('ww-grid');
 const wwHeaderClass = document.querySelectorAll('.ww-header');
 const wwResults = document.getElementsByClassName('ww-result');
+const arrows = document.getElementsByClassName('exp-arrow');
+const arrowsDown = document.getElementsByClassName('exp-arrow-down');
 
 //Function for creating list item in HTML document
 function createListItem(string, list) {
@@ -21,11 +23,38 @@ function createGridItem(input, percentage) {
     let cssClass1 = document.createAttribute('class');
     let cssClass2 = document.createAttribute('class');
     cssClass1.value = 'ww-row';
-    htmlDiv1.innerHTML = `<p><a href="#" class="ww-result" id="${input}">${input}</a></p><div class="exp-arrow"></div>`;
+    htmlDiv1.innerHTML = `<p class="ww-result" id="${input}">${input}</p><i class="exp-arrow" id="${input}-arr"></i>`;
     htmlDiv1.setAttributeNode(cssClass1);
     wwGrid.appendChild(htmlDiv1);
-    cssClass2. value = 'ww-row';
+    cssClass2.value = 'ww-row';
     htmlDiv2.innerHTML = `<p>${percentage}%</p>`;
+    htmlDiv2.setAttributeNode(cssClass2);
+    wwGrid.appendChild(htmlDiv2);
+};
+
+function createGridIemExp(a) {
+    let htmlDiv1 = document.createElement('div');
+    let htmlDiv2 = document.createElement('div');
+    let cssClass1 = document.createAttribute('class');
+    let cssClass2 = document.createAttribute('class');
+    cssClass1.value = 'ww-exp-grid';
+    htmlDiv1.setAttributeNode(cssClass1);
+    htmlDiv1.setAttribute('id',`${a}-exp`);
+    wwData.forEach(e => {
+        if (e.input === a) {
+            e.outputs.forEach(e2 => {
+                let newDiv = document.createElement('div');
+                let newAtt = document.createAttribute('class');
+                newAtt.value = 'ww-exp-grid-item';
+                newDiv.setAttributeNode(newAtt);
+                newDiv.innerHTML = `<p>${e2}</p>`;
+                htmlDiv1.appendChild(newDiv);
+            });
+        };
+    });
+    wwGrid.appendChild(htmlDiv1);
+    cssClass2.value = 'ww-row ww-filler';
+    htmlDiv2.setAttribute('id',`${a}-expf`)
     htmlDiv2.setAttributeNode(cssClass2);
     wwGrid.appendChild(htmlDiv2);
 };
@@ -57,6 +86,24 @@ function findPercentage(value) {
     return percentage;
 };
 
+function expandResult(event) {
+    //alert(event.target.id.replace('-arr',''));
+    event.target.style.transform = 'rotate(45deg)';
+    document.getElementById(event.target.id.replace('-arr','') + '-exp').style.display = 'grid';
+    document.getElementById(event.target.id.replace('-arr','') + '-expf').style.display = 'block';
+    document.getElementById(event.target.id).removeEventListener('click', expandResult);
+    document.getElementById(event.target.id).addEventListener('click', contractResult);
+};
+
+function contractResult(event) {
+    //alert(event.target.id.replace('-arr',''));
+    event.target.style.transform = 'rotate(-45deg)';
+    document.getElementById(event.target.id.replace('-arr','') + '-exp').style.display = 'none';
+    document.getElementById(event.target.id.replace('-arr','') + '-expf').style.display = 'none';
+    document.getElementById(event.target.id).removeEventListener('click', contractResult);
+    document.getElementById(event.target.id).addEventListener('click', expandResult);
+};
+
 function findInput(searchCriteria) {
     if (document.querySelector('.ww-row') != null) {
         document.querySelectorAll('.ww-row').forEach(e => e.remove());
@@ -80,6 +127,8 @@ function findInput(searchCriteria) {
         inputsArray.sort((a,b) => {return b[1] - a[1]});
         inputsArray.forEach((element) => { //itereates through all elements in inputsArray
             createGridItem(element[0], element[1]);
+            createGridIemExp(element[0]);
+            document.getElementById(element[0] + '-arr').addEventListener('click', expandResult);
         });
         document.getElementById('ww-h2').innerHTML = `Looking for <strong>${searchCriteria}</strong>`
     } else if (searchCriteria === '') {
@@ -92,9 +141,14 @@ function findInput(searchCriteria) {
         document.getElementById('error-msg').innerHTML = `According to our data '<strong>${searchCriteria}</strong>' cannot be acquired from the Wishing Well.`;
     };
     userInputBox.blur(); //deselect input box
+    //Add eventListeners for all results created
     Array.from(wwResults).forEach(e => {
         e.addEventListener('click', findInputByResult);
-    })
+    });
+    //Add eventListeners for all arrows created
+    /*Array.from(arrows).forEach(e => {
+        e.addEventListener('click', expandResult);
+    });*/
 };
 
 function createSuggestionList() {
