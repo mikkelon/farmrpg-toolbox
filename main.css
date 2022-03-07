@@ -122,9 +122,17 @@ header h2 {
     grid-template-columns: 75% 25%;
     grid-template-rows: 25px;
     /*border: 1px solid black;*/
-    width: 80%;
+    width: 90%;
     gap: 2px;
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;  /* Hidden scrollbar IE and Edge */
+    scrollbar-width: none;  /*Hidden scrollbar Firefox */
+}
+
+/*Hidden scrollbar Chrome*/
+#ww-grid::-webkit-scrollbar {
+    display: none;
 }
 
 .ww-row {
