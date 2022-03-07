@@ -247,7 +247,4 @@ const wwData = [{
 },{
     input: 'Small Spring',
     outputs: ['Strange Letter', 'Spectacles', 'Small Screw', 'Wooden Pipe']
-},{
-    input: '',
-    outputs: ['']
 }]

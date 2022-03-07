@@ -58,6 +58,8 @@ function findInput() {
         inputsArray.forEach((element) => { //itereates through all elements in inputsArray
             createListItem(`<strong>${element[0]}</strong> with a <strong>${element[1]}%</strong> drop chance.`, wwList); //Creates a list item for each element in inputsArray
         });
+    } else if (userInput === '') {
+        createListItem('You need to enter a search criteria.', wwList);
     } else {
         createListItem(`According to our data '<strong>${userInput}</strong>' cannot be acquired from the Wishing Well.`, wwList);
     };
