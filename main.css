@@ -124,6 +124,7 @@ header h2 {
     /*border: 1px solid black;*/
     width: 80%;
     gap: 2px;
+    overflow: hidden;
 }
 
 .ww-row {
